@@ -51,10 +51,15 @@ jobs:
           args: push docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1    
 
       - name: push to heroku
+        env : 
+            HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
+
+
+
         run : |
-            docker login --username=_ --password ${{ secrets.HEROKU_TOKEN }} $HEROKU_REGISTRY_URL
-            docker build -t $HEROKU_APP/angulardevops/angulardevops:latest .
-            docker push  $HEROKU_APP/angulardevops/angulardevops:latest
+            docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
+            docker build -t $HEROKU_REGISTRY_URL/angulardevops/angulardevops:latest .
+            docker push  $HEROKU_REGISTRY_URL/angulardevops/angulardevops:latest
             heroku container:release angulardevops --app angulardevops
 
 
