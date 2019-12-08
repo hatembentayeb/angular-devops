@@ -13,5 +13,5 @@ RUN ng build --prod
 
 
 FROM nginx:1.17.1-alpine
-COPY  --from=builder  dist/my-first-app /usr/share/nginx/html
+COPY  --from=builder  /app/dist/my-first-app /usr/share/nginx/html
 
