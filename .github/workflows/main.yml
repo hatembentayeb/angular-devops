@@ -33,11 +33,11 @@ jobs:
           ng --version
 
       - name: installing requred packages 
-      - run : |
+        run : |
           npm ci 
           ng build --prod 
 
       - name : serving the app 
-      - run : | 
+        run : | 
           ng serve
           
