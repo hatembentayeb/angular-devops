@@ -30,6 +30,15 @@ jobs:
       # - name: installing required packages 
       #   run : |
       #     npm ci 
+
+
+      - name: Login to github registry
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_REGISTRY_URL: docker.pkg.github.com
+
       - name : build docker image
         uses : actions-hub/docker/cli@master
         with :
