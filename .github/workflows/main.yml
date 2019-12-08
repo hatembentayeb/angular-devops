@@ -37,7 +37,9 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          HEROKU_TOKEN   : ${{ secrets.HEROKU_TOKEN }}
           DOCKER_REGISTRY_URL: docker.pkg.github.com
+          HEROKU_REGISTRY_URL: registry.heroku.com
 
       - name : build docker image
         uses : actions-hub/docker/cli@master
@@ -47,7 +49,14 @@ jobs:
       - name: Push to github registry
         uses: actions-hub/docker@master
         with:
-          args: push docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1          
+          args: push docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1    
+
+      - name: push to heroku
+        run : |
+            docker login --username=_ -p $HEROKU_TOKEN $HEROKU_REGISTRY_URL
+            docker build -t $HEROKU_APP/angulardevops/angulardevops:latest .
+            docker push  $HEROKU_APP/angulardevops/angulardevops:latest
+            heroku container:release angulardevops --app angulardevops
 
 
           
