@@ -32,8 +32,8 @@ jobs:
       #     npm ci 
       - name : build docker image
       - uses : actions-hub/docker/cli@master
-        run : |
-             docker build -t docker.pkg.github.com/${{ github.repository }}/app:0.1 .
+        with :
+          args : build -t docker.pkg.github.com/${{ github.repository }}/app:0.1 .
           
 
 
