@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name : adding angular envirement action
-    - uses: actions/angular-github-actions
+      uses: actions/angular-github-actions
     - run : npm install 
     - run : ng serve 
