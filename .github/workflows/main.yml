@@ -44,7 +44,7 @@ jobs:
         with :
           args : build -t docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1 .
 
-      - name: Push to docker hub 
+      - name: Push to docker hub .
         if: success()
         uses: actions-hub/docker@master
         with:
