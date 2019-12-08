@@ -1,5 +1,5 @@
 server {
-  listen $PORT;
+  listen $PORT default_server;
 
   location / {
     root   /usr/share/nginx/html;
