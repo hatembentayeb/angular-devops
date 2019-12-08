@@ -42,7 +42,7 @@ jobs:
       - name : build docker image
         uses : actions-hub/docker/cli@master
         with :
-          args : build -t docker.pkg.github.com/${{ github.repository }}/app:0.1 .
+          args : build -t docker.pkg.github.com/angulardevops:0.1 .
           
 
 
