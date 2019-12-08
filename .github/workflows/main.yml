@@ -27,9 +27,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: installing required packages 
+      # - name: installing required packages 
+      #   run : |
+      #     npm ci 
+      - name : build docker image
+      - uses : actions-hub/docker/cli@master
         run : |
-          npm ci 
+             docker build -t docker.pkg.github.com/${{ github.repository }}/app:0.1 .
           
 
 
