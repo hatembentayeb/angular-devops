@@ -57,6 +57,7 @@ jobs:
             docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
             docker build -t $HEROKU_REGISTRY_URL/angulardevops/angulardevops:latest .
             docker push  $HEROKU_REGISTRY_URL/angulardevops/angulardevops:latest
+            export HEROKU_API_KEY=$HEROKU_TOKEN
             heroku container:release angulardevops --app angulardevops
 
 
