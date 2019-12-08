@@ -37,7 +37,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           DOCKER_REGISTRY_URL: docker.pkg.github.com
 
       - name : build docker image
