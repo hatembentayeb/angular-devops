@@ -53,7 +53,7 @@ jobs:
 
       - name: push to heroku
         run : |
-            docker login --username=_ -p $HEROKU_TOKEN $HEROKU_REGISTRY_URL
+            docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
             docker build -t $HEROKU_APP/angulardevops/angulardevops:latest .
             docker push  $HEROKU_APP/angulardevops/angulardevops:latest
             heroku container:release angulardevops --app angulardevops
