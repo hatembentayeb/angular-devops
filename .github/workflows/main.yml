@@ -55,9 +55,9 @@ jobs:
             HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
         run : |
             docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
-            docker build  -t $HEROKU_REGISTRY_URL/angulardevops/web .
-            docker push  $HEROKU_REGISTRY_URL/angulardevops/web
             export HEROKU_API_KEY=$HEROKU_TOKEN
+            heroku container:login
+            heroku container:push web --app angulardevops
             heroku container:release web --app angulardevops
 
 
