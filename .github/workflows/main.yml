@@ -59,6 +59,7 @@ jobs:
             heroku container:login
             heroku container:push web --app angulardevops
             heroku container:release web --app angulardevops
+            heroku ps:scale web=1 --app angulardevops
 
 
           
