@@ -2,7 +2,7 @@ name: Build an angular project
 on:
   push:
     branches:
-      - master
+      - basic
 
 jobs:
   build:
@@ -12,37 +12,37 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      # - uses: actions/checkout@v1
 
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      # - name: Cache node modules
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
 
-      - name: Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+      # - name: Node ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
 
       # - name: installing required packages 
       #   run : |
       #     npm ci 
 
 
-      - name: Login to github registry
-        uses: actions-hub/docker/login@master
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER_REGISTRY_URL: docker.pkg.github.com
+      # - name: Login to github registry
+      #   uses: actions-hub/docker/login@master
+      #   env:
+      #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #     DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      #     DOCKER_REGISTRY_URL: docker.pkg.github.com
 
-      - name : build docker image
-        uses : actions-hub/docker/cli@master
-        with :
-          args : build -t docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1 .
+      # - name : build docker image
+      #   uses : actions-hub/docker/cli@master
+      #   with :
+      #     args : build -t docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1 .
 
       - name: Push to github registry
         uses: actions-hub/docker@master
