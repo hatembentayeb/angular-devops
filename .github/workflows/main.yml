@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - uses : actions-hub/docker/cli@master
+      - uses: actions-hub/docker/login@master
 
       # - name: Cache node modules
       #   uses: actions/cache@v1
@@ -44,10 +46,10 @@ jobs:
       #   with :
       #     args : build -t docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1 .
 
-      - name: Push to github registry
-        uses: actions-hub/docker@master
-        with:
-          args: push docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1    
+      # - name: Push to github registry
+      #   uses: actions-hub/docker@master
+      #   with:
+      #     args: push docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1    
 
       - name: push to heroku
         env : 
