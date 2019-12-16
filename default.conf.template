@@ -2,7 +2,11 @@ server {
   listen $PORT default_server;
 
   location / {
-    root   /usr/share/nginx/html;
+    root   /usr/share/nginx/html/;
     index  index.html index.htm;
   }
+
+  location ~ \.css {
+  add_header Content-Type text/css;
+}
 }
