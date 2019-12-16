@@ -2,10 +2,16 @@ import { Component } from "@angular/core";
 
 @Component({
     selector : 'app-server',
-    templateUrl: './server.component.html'
+    templateUrl: './server.component.html',
+    styles : [`
+    .online {
+        color:white;
+    }
+    
+    `]
 })
 export class ServerComponent{
-    serverID = 10;
+    serverID = new Date().toLocaleString();
     serverStatus : String = 'offline';
 
     constructor(){
@@ -17,11 +23,7 @@ export class ServerComponent{
     }
     
     getColor(){
-        if (this.serverStatus == 'offline'){
-            return 'red';
-        }else{
-            return 'green';
-        }
+        return this.serverStatus === "offline" ? 'red' : 'green';
         
 
     }
