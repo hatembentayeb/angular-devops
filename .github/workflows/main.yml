@@ -58,15 +58,17 @@ jobs:
 
 
       - name : push to staging server with ssh
+        env :
+            SSHPASS : ${{ secrets.SSHPASS }}
         run : |
             sudo apt-get update 
             sudo apt-get install sshpass -y
-            export SSHPASS=${{ secrets.SSHPASS }}
+            export SSHPASS=$SSHPASS
             npm install -g @angular/cli@6.2
             npm ci --debug
             ng build --prod
             cd dist/my-first-app/
-            sshpass  scp -v  -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
+            sshpass  scp -v -p $SSPASS -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
 
                
       # - name: push to heroku
