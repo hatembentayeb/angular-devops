@@ -68,7 +68,7 @@ jobs:
             npm ci --debug
             ng build --prod
             cd dist/my-first-app/
-            sudo sshpass  scp -v -p $SSHPASS -o StrictHostKeyChecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
+            sudo sshpass -e scp -v  -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
 
                
       # - name: push to heroku
