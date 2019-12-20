@@ -63,12 +63,12 @@ jobs:
         run : |
             sudo apt-get update 
             sudo apt-get install sshpass -y
-            export SSHPASS=$SSHPASS
+            sudo export SSHPASS=$SSHPASS
             npm install -g @angular/cli@6.2
             npm ci --debug
             ng build --prod
             cd dist/my-first-app/
-            sshpass  scp -v -p $SSPASS -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
+            sudo sshpass  scp -v -p $SSPASS -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
 
                
       # - name: push to heroku
