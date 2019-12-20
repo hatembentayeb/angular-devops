@@ -67,7 +67,7 @@ jobs:
             npm ci --debug
             ng build --prod
             cd dist/my-first-app/
-            sudo sshpass -e  -v  ssh  root@51.38.38.79 'rm -rf /usr/share/nginx/html/*'
+            sudo sshpass -p ${SSHPASS}   -v  ssh  root@51.38.38.79 'rm -rf /usr/share/nginx/html/*'
             sudo sshpass -p ${SSHPASS} scp -v  -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
 
                
