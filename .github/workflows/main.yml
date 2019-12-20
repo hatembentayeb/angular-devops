@@ -59,8 +59,8 @@ jobs:
 
       - name : push to staging server with ssh
         run : |
-            apt-get update 
-            apt-get install sshpass -y
+            sudo apt-get update 
+            sudo apt-get install sshpass -y
             export "SSHPASS=$SSHPASS"
             npm install -g @angular/cli@6.2
             npm ci --debug
