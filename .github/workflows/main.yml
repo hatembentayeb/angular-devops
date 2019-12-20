@@ -61,7 +61,7 @@ jobs:
         run : |
             sudo apt-get update 
             sudo apt-get install sshpass -y
-            export "SSHPASS=$SSHPASS"
+            export SSHPASS=${{ secrets.SSHPASS }}
             npm install -g @angular/cli@6.2
             npm ci --debug
             ng build --prod
