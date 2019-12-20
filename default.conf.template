@@ -3,6 +3,7 @@ server {
 
   location / {
     include  /etc/nginx/mime.types;
+    
     root   /usr/share/nginx/html/;
     index  index.html index.htm;
   }

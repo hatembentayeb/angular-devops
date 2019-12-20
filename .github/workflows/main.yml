@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
+
       # - uses : actions-hub/docker/cli@master
       # - uses: actions-hub/docker/login@master
       #   env:
@@ -20,22 +22,20 @@ jobs:
       #     DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       #     DOCKER_REGISTRY_URL: docker.pkg.github.com
 
-      # - name: Cache node modules
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      # - name: Node ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-      # - name: installing required packages 
-      #   run : |
-      #     npm ci 
+
 
 
       # - name: Login to github registry
@@ -55,17 +55,31 @@ jobs:
       #   with:
       #     args: push docker.pkg.github.com/${{ github.repository }}/angulardevops:0.1    
 
-      - name: push to heroku
-        env : 
-            HEROKU_REGISTRY_URL: registry.heroku.com
-            HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
+
+
+      - name : push to staging server with ssh
         run : |
-            docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
-            export HEROKU_API_KEY=$HEROKU_TOKEN
-            heroku container:login
-            heroku container:push web --app angulardevops
-            heroku container:release web --app angulardevops
-            heroku ps:scale web=1 --app angulardevops
+            apt-get update 
+            apt-get install sshpass -y
+            export "SSHPASS=$SSHPASS"
+            npm install -g @angular/cli@6.2
+            npm ci --debug
+            ng build --prod
+            cd dist/my-first-app/
+            sshpass  scp -v  -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
+
+               
+      # - name: push to heroku
+      #   env : 
+      #       HEROKU_REGISTRY_URL: registry.heroku.com
+      #       HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
+      #   run : |
+      #       docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
+      #       export HEROKU_API_KEY=$HEROKU_TOKEN
+      #       heroku container:login
+      #       heroku container:push web --app angulardevops
+      #       heroku container:release web --app angulardevops
+      #       heroku ps:scale web=1 --app angulardevops
 
 
           
