@@ -63,7 +63,6 @@ jobs:
         run : |
             sudo apt-get update 
             sudo apt-get install sshpass -y
-            
             npm install -g @angular/cli@6.2
             npm ci --debug
             ng build --prod
@@ -71,17 +70,17 @@ jobs:
             sudo sshpass -p ${SSHPASS} scp -v  -o stricthostkeychecking=no -r *.* root@51.38.38.79:/usr/share/nginx/html
 
                
-      # - name: push to heroku
-      #   env : 
-      #       HEROKU_REGISTRY_URL: registry.heroku.com
-      #       HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
-      #   run : |
-      #       docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
-      #       export HEROKU_API_KEY=$HEROKU_TOKEN
-      #       heroku container:login
-      #       heroku container:push web --app angulardevops
-      #       heroku container:release web --app angulardevops
-      #       heroku ps:scale web=1 --app angulardevops
+      - name: push to heroku
+        env : 
+            HEROKU_REGISTRY_URL: registry.heroku.com
+            HEROKU_TOKEN : ${{ secrets.HEROKU_TOKEN }}
+        run : |
+            docker login --username=_ --password $HEROKU_TOKEN $HEROKU_REGISTRY_URL
+            export HEROKU_API_KEY=$HEROKU_TOKEN
+            heroku container:login
+            heroku container:push web --app angulardevops
+            heroku container:release web --app angulardevops
+            heroku ps:scale web=1 --app angulardevops
 
 
           
