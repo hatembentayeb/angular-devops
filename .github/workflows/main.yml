@@ -1,4 +1,4 @@
-name: Build an angular project 
+name: devops 
 on:
   push:
     branches:
@@ -57,19 +57,19 @@ jobs:
 
 
 
-      - name : push to staging server with ssh
-        env :
-            SSHPASS : ${{ secrets.SSHPASS }}
-            SERVER : ${{ secrets.SERVER}}
-        run : |
-            sudo apt-get update 
-            sudo apt-get install sshpass -y
-            npm install -g @angular/cli@6.2
-            npm ci --debug
-            ng build --prod
-            cd dist/my-first-app/
-            sudo sshpass  -p ${SSHPASS}   -v  ssh -o StrictHostKeyChecking=no root@${SERVER} 'rm -rf /usr/share/nginx/html/*'
-            sudo sshpass -p ${SSHPASS} scp -v  -o stricthostkeychecking=no -r *.* root@${SERVER}:/usr/share/nginx/html
+     # - name : push to staging server with ssh
+      #  env :
+       #     SSHPASS : ${{ secrets.SSHPASS }}
+        #    SERVER : ${{ secrets.SERVER}}
+        #run : |
+         #   sudo apt-get update 
+          #  sudo apt-get install sshpass -y
+           # npm install -g @angular/cli@6.2
+            #npm ci --debug
+            #ng build --prod
+            #cd dist/my-first-app/
+            #sudo sshpass  -p ${SSHPASS}   -v  ssh -o StrictHostKeyChecking=no root@${SERVER} 'rm -rf /usr/share/nginx/html/*'
+            #sudo sshpass -p ${SSHPASS} scp -v  -o stricthostkeychecking=no -r *.* root@${SERVER}:/usr/share/nginx/html
 
                
       - name: push to heroku
